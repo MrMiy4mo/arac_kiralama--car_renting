@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AracKiralamaOtomasyonuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="aracKira">
+    <Key>
+      <PropertyRef Name="kiraID" />
+    </Key>
+    <Property Name="kiraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="aracPlaka" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="kiraTarih" Type="datetime" Nullable="false" />
+    <Property Name="kiraAktif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aracList">
+    <Key>
+      <PropertyRef Name="aracPlaka" />
+    </Key>
+    <Property Name="aracPlaka" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="aracResim" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="aracMarkaID" Type="int" Nullable="false" />
+    <Property Name="aracAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="aracRenk" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="aracYakitTipi" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="aracVitesTipi" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="aracBavulSayisi" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="aracKoltukSayisi" Type="nchar" MaxLength="2" Nullable="false" />
+    <Property Name="aracKlimali" Type="bit" Nullable="false" />
+    <Property Name="aracAktif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="aracMarka">
+    <Key>
+      <PropertyRef Name="aracMarkaID" />
+    </Key>
+    <Property Name="aracMarkaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="aracMarkaAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userList">
+    <Key>
+      <PropertyRef Name="userTC" />
+    </Key>
+    <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="userLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userPass" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="userAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userCinsiyet" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="userEPosta" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userTel" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="userDtarihi" Type="datetime" Nullable="false" />
+    <Property Name="userDyeri" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userAvatar" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="rolID" Type="int" Nullable="false" />
+    <Property Name="userAktif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userRolList">
+    <Key>
+      <PropertyRef Name="rolID" />
+    </Key>
+    <Property Name="rolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rolAD" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userSession">
+    <Key>
+      <PropertyRef Name="sessionKey" />
+    </Key>
+    <Property Name="sessionKey" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="sessionTarih" Type="datetime" Nullable="false" />
+    <Property Name="sessionAktif" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_aracList_aracMarka">
+    <End Role="aracMarka" Type="Self.aracMarka" Multiplicity="1" />
+    <End Role="aracList" Type="Self.aracList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aracMarka">
+        <PropertyRef Name="aracMarkaID" />
+      </Principal>
+      <Dependent Role="aracList">
+        <PropertyRef Name="aracMarkaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userList_userRolList">
+    <End Role="userRolList" Type="Self.userRolList" Multiplicity="1" />
+    <End Role="userList" Type="Self.userList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userRolList">
+        <PropertyRef Name="rolID" />
+      </Principal>
+      <Dependent Role="userList">
+        <PropertyRef Name="rolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userSession_userList">
+    <End Role="userList" Type="Self.userList" Multiplicity="1" />
+    <End Role="userSession" Type="Self.userSession" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userList">
+        <PropertyRef Name="userTC" />
+      </Principal>
+      <Dependent Role="userSession">
+        <PropertyRef Name="userTC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AracKiralamaOtomasyonuModelStoreContainer">
+    <EntitySet Name="aracKira" EntityType="Self.aracKira" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="aracList" EntityType="Self.aracList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="aracMarka" EntityType="Self.aracMarka" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userList" EntityType="Self.userList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userRolList" EntityType="Self.userRolList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userSession" EntityType="Self.userSession" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_aracList_aracMarka" Association="Self.FK_aracList_aracMarka">
+      <End Role="aracMarka" EntitySet="aracMarka" />
+      <End Role="aracList" EntitySet="aracList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userList_userRolList" Association="Self.FK_userList_userRolList">
+      <End Role="userRolList" EntitySet="userRolList" />
+      <End Role="userList" EntitySet="userList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userSession_userList" Association="Self.FK_userSession_userList">
+      <End Role="userList" EntitySet="userList" />
+      <End Role="userSession" EntitySet="userSession" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

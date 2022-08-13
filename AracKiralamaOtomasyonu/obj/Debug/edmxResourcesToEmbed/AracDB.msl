@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AracKiralamaOtomasyonuModelStoreContainer" CdmEntityContainer="AracKiralamaOtomasyonuEntities">
+    <EntitySetMapping Name="aracKira">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracKira">
+        <MappingFragment StoreEntitySet="aracKira">
+          <ScalarProperty Name="kiraAktif" ColumnName="kiraAktif" />
+          <ScalarProperty Name="kiraTarih" ColumnName="kiraTarih" />
+          <ScalarProperty Name="userTC" ColumnName="userTC" />
+          <ScalarProperty Name="aracPlaka" ColumnName="aracPlaka" />
+          <ScalarProperty Name="kiraID" ColumnName="kiraID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aracList">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracList">
+        <MappingFragment StoreEntitySet="aracList">
+          <ScalarProperty Name="aracAktif" ColumnName="aracAktif" />
+          <ScalarProperty Name="aracKlimali" ColumnName="aracKlimali" />
+          <ScalarProperty Name="aracKoltukSayisi" ColumnName="aracKoltukSayisi" />
+          <ScalarProperty Name="aracBavulSayisi" ColumnName="aracBavulSayisi" />
+          <ScalarProperty Name="aracVitesTipi" ColumnName="aracVitesTipi" />
+          <ScalarProperty Name="aracYakitTipi" ColumnName="aracYakitTipi" />
+          <ScalarProperty Name="aracRenk" ColumnName="aracRenk" />
+          <ScalarProperty Name="aracAdi" ColumnName="aracAdi" />
+          <ScalarProperty Name="aracMarkaID" ColumnName="aracMarkaID" />
+          <ScalarProperty Name="aracResim" ColumnName="aracResim" />
+          <ScalarProperty Name="aracPlaka" ColumnName="aracPlaka" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aracMarka">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracMarka">
+        <MappingFragment StoreEntitySet="aracMarka">
+          <ScalarProperty Name="aracMarkaAdi" ColumnName="aracMarkaAdi" />
+          <ScalarProperty Name="aracMarkaID" ColumnName="aracMarkaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userList">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userList">
+        <MappingFragment StoreEntitySet="userList">
+          <ScalarProperty Name="userAktif" ColumnName="userAktif" />
+          <ScalarProperty Name="rolID" ColumnName="rolID" />
+          <ScalarProperty Name="userAvatar" ColumnName="userAvatar" />
+          <ScalarProperty Name="userDyeri" ColumnName="userDyeri" />
+          <ScalarProperty Name="userDtarihi" ColumnName="userDtarihi" />
+          <ScalarProperty Name="userTel" ColumnName="userTel" />
+          <ScalarProperty Name="userEPosta" ColumnName="userEPosta" />
+          <ScalarProperty Name="userCinsiyet" ColumnName="userCinsiyet" />
+          <ScalarProperty Name="userSoyad" ColumnName="userSoyad" />
+          <ScalarProperty Name="userAd" ColumnName="userAd" />
+          <ScalarProperty Name="userPass" ColumnName="userPass" />
+          <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+          <ScalarProperty Name="userTC" ColumnName="userTC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userRolList">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userRolList">
+        <MappingFragment StoreEntitySet="userRolList">
+          <ScalarProperty Name="rolAD" ColumnName="rolAD" />
+          <ScalarProperty Name="rolID" ColumnName="rolID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userSession">
+      <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userSession">
+        <MappingFragment StoreEntitySet="userSession">
+          <ScalarProperty Name="sessionAktif" ColumnName="sessionAktif" />
+          <ScalarProperty Name="sessionTarih" ColumnName="sessionTarih" />
+          <ScalarProperty Name="userTC" ColumnName="userTC" />
+          <ScalarProperty Name="sessionKey" ColumnName="sessionKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

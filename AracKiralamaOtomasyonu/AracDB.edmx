@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AracKiralamaOtomasyonuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aracKira">
+          <Key>
+            <PropertyRef Name="kiraID" />
+          </Key>
+          <Property Name="kiraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aracPlaka" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="kiraTarih" Type="datetime" Nullable="false" />
+          <Property Name="kiraAktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aracList">
+          <Key>
+            <PropertyRef Name="aracPlaka" />
+          </Key>
+          <Property Name="aracPlaka" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="aracResim" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="aracMarkaID" Type="int" Nullable="false" />
+          <Property Name="aracAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="aracRenk" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="aracYakitTipi" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="aracVitesTipi" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="aracBavulSayisi" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="aracKoltukSayisi" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="aracKlimali" Type="bit" Nullable="false" />
+          <Property Name="aracAktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aracMarka">
+          <Key>
+            <PropertyRef Name="aracMarkaID" />
+          </Key>
+          <Property Name="aracMarkaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aracMarkaAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userList">
+          <Key>
+            <PropertyRef Name="userTC" />
+          </Key>
+          <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="userLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userPass" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="userAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userCinsiyet" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="userEPosta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userTel" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="userDtarihi" Type="datetime" Nullable="false" />
+          <Property Name="userDyeri" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userAvatar" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rolID" Type="int" Nullable="false" />
+          <Property Name="userAktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userRolList">
+          <Key>
+            <PropertyRef Name="rolID" />
+          </Key>
+          <Property Name="rolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolAD" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userSession">
+          <Key>
+            <PropertyRef Name="sessionKey" />
+          </Key>
+          <Property Name="sessionKey" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="userTC" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="sessionTarih" Type="datetime" Nullable="false" />
+          <Property Name="sessionAktif" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_aracList_aracMarka">
+          <End Role="aracMarka" Type="Self.aracMarka" Multiplicity="1" />
+          <End Role="aracList" Type="Self.aracList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aracMarka">
+              <PropertyRef Name="aracMarkaID" />
+            </Principal>
+            <Dependent Role="aracList">
+              <PropertyRef Name="aracMarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userList_userRolList">
+          <End Role="userRolList" Type="Self.userRolList" Multiplicity="1" />
+          <End Role="userList" Type="Self.userList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRolList">
+              <PropertyRef Name="rolID" />
+            </Principal>
+            <Dependent Role="userList">
+              <PropertyRef Name="rolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userSession_userList">
+          <End Role="userList" Type="Self.userList" Multiplicity="1" />
+          <End Role="userSession" Type="Self.userSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userList">
+              <PropertyRef Name="userTC" />
+            </Principal>
+            <Dependent Role="userSession">
+              <PropertyRef Name="userTC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AracKiralamaOtomasyonuModelStoreContainer">
+          <EntitySet Name="aracKira" EntityType="Self.aracKira" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aracList" EntityType="Self.aracList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aracMarka" EntityType="Self.aracMarka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userList" EntityType="Self.userList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userRolList" EntityType="Self.userRolList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userSession" EntityType="Self.userSession" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_aracList_aracMarka" Association="Self.FK_aracList_aracMarka">
+            <End Role="aracMarka" EntitySet="aracMarka" />
+            <End Role="aracList" EntitySet="aracList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userList_userRolList" Association="Self.FK_userList_userRolList">
+            <End Role="userRolList" EntitySet="userRolList" />
+            <End Role="userList" EntitySet="userList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userSession_userList" Association="Self.FK_userSession_userList">
+            <End Role="userList" EntitySet="userList" />
+            <End Role="userSession" EntitySet="userSession" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AracKiralamaOtomasyonuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AracKiralamaOtomasyonuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="aracKira" EntityType="AracKiralamaOtomasyonuModel.aracKira" />
+          <EntitySet Name="aracList" EntityType="AracKiralamaOtomasyonuModel.aracList" />
+          <EntitySet Name="aracMarka" EntityType="AracKiralamaOtomasyonuModel.aracMarka" />
+          <EntitySet Name="userList" EntityType="AracKiralamaOtomasyonuModel.userList" />
+          <EntitySet Name="userRolList" EntityType="AracKiralamaOtomasyonuModel.userRolList" />
+          <EntitySet Name="userSession" EntityType="AracKiralamaOtomasyonuModel.userSession" />
+          <AssociationSet Name="FK_aracList_aracMarka" Association="AracKiralamaOtomasyonuModel.FK_aracList_aracMarka">
+            <End Role="aracMarka" EntitySet="aracMarka" />
+            <End Role="aracList" EntitySet="aracList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userList_userRolList" Association="AracKiralamaOtomasyonuModel.FK_userList_userRolList">
+            <End Role="userRolList" EntitySet="userRolList" />
+            <End Role="userList" EntitySet="userList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userSession_userList" Association="AracKiralamaOtomasyonuModel.FK_userSession_userList">
+            <End Role="userList" EntitySet="userList" />
+            <End Role="userSession" EntitySet="userSession" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="aracKira">
+          <Key>
+            <PropertyRef Name="kiraID" />
+          </Key>
+          <Property Name="kiraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aracPlaka" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userTC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="kiraTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="kiraAktif" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aracList">
+          <Key>
+            <PropertyRef Name="aracPlaka" />
+          </Key>
+          <Property Name="aracPlaka" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="aracResim" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="aracMarkaID" Type="Int32" Nullable="false" />
+          <Property Name="aracAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="aracRenk" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="aracYakitTipi" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="aracVitesTipi" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="aracBavulSayisi" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="aracKoltukSayisi" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="aracKlimali" Type="Boolean" Nullable="false" />
+          <Property Name="aracAktif" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="aracMarka" Relationship="AracKiralamaOtomasyonuModel.FK_aracList_aracMarka" FromRole="aracList" ToRole="aracMarka" />
+        </EntityType>
+        <EntityType Name="aracMarka">
+          <Key>
+            <PropertyRef Name="aracMarkaID" />
+          </Key>
+          <Property Name="aracMarkaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aracMarkaAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aracList" Relationship="AracKiralamaOtomasyonuModel.FK_aracList_aracMarka" FromRole="aracMarka" ToRole="aracList" />
+        </EntityType>
+        <EntityType Name="userList">
+          <Key>
+            <PropertyRef Name="userTC" />
+          </Key>
+          <Property Name="userTC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="userLogin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userPass" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="userAd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userSoyad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userCinsiyet" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="userEPosta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userTel" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="userDtarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userDyeri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userAvatar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rolID" Type="Int32" Nullable="false" />
+          <Property Name="userAktif" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="userRolList" Relationship="AracKiralamaOtomasyonuModel.FK_userList_userRolList" FromRole="userList" ToRole="userRolList" />
+          <NavigationProperty Name="userSession" Relationship="AracKiralamaOtomasyonuModel.FK_userSession_userList" FromRole="userList" ToRole="userSession" />
+        </EntityType>
+        <EntityType Name="userRolList">
+          <Key>
+            <PropertyRef Name="rolID" />
+          </Key>
+          <Property Name="rolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolAD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userList" Relationship="AracKiralamaOtomasyonuModel.FK_userList_userRolList" FromRole="userRolList" ToRole="userList" />
+        </EntityType>
+        <EntityType Name="userSession">
+          <Key>
+            <PropertyRef Name="sessionKey" />
+          </Key>
+          <Property Name="sessionKey" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="userTC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="sessionTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sessionAktif" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="userList" Relationship="AracKiralamaOtomasyonuModel.FK_userSession_userList" FromRole="userSession" ToRole="userList" />
+        </EntityType>
+        <Association Name="FK_aracList_aracMarka">
+          <End Type="AracKiralamaOtomasyonuModel.aracMarka" Role="aracMarka" Multiplicity="1" />
+          <End Type="AracKiralamaOtomasyonuModel.aracList" Role="aracList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aracMarka">
+              <PropertyRef Name="aracMarkaID" />
+            </Principal>
+            <Dependent Role="aracList">
+              <PropertyRef Name="aracMarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userList_userRolList">
+          <End Type="AracKiralamaOtomasyonuModel.userRolList" Role="userRolList" Multiplicity="1" />
+          <End Type="AracKiralamaOtomasyonuModel.userList" Role="userList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRolList">
+              <PropertyRef Name="rolID" />
+            </Principal>
+            <Dependent Role="userList">
+              <PropertyRef Name="rolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userSession_userList">
+          <End Type="AracKiralamaOtomasyonuModel.userList" Role="userList" Multiplicity="1" />
+          <End Type="AracKiralamaOtomasyonuModel.userSession" Role="userSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userList">
+              <PropertyRef Name="userTC" />
+            </Principal>
+            <Dependent Role="userSession">
+              <PropertyRef Name="userTC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AracKiralamaOtomasyonuModelStoreContainer" CdmEntityContainer="AracKiralamaOtomasyonuEntities">
+          <EntitySetMapping Name="aracKira">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracKira">
+              <MappingFragment StoreEntitySet="aracKira">
+                <ScalarProperty Name="kiraAktif" ColumnName="kiraAktif" />
+                <ScalarProperty Name="kiraTarih" ColumnName="kiraTarih" />
+                <ScalarProperty Name="userTC" ColumnName="userTC" />
+                <ScalarProperty Name="aracPlaka" ColumnName="aracPlaka" />
+                <ScalarProperty Name="kiraID" ColumnName="kiraID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aracList">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracList">
+              <MappingFragment StoreEntitySet="aracList">
+                <ScalarProperty Name="aracAktif" ColumnName="aracAktif" />
+                <ScalarProperty Name="aracKlimali" ColumnName="aracKlimali" />
+                <ScalarProperty Name="aracKoltukSayisi" ColumnName="aracKoltukSayisi" />
+                <ScalarProperty Name="aracBavulSayisi" ColumnName="aracBavulSayisi" />
+                <ScalarProperty Name="aracVitesTipi" ColumnName="aracVitesTipi" />
+                <ScalarProperty Name="aracYakitTipi" ColumnName="aracYakitTipi" />
+                <ScalarProperty Name="aracRenk" ColumnName="aracRenk" />
+                <ScalarProperty Name="aracAdi" ColumnName="aracAdi" />
+                <ScalarProperty Name="aracMarkaID" ColumnName="aracMarkaID" />
+                <ScalarProperty Name="aracResim" ColumnName="aracResim" />
+                <ScalarProperty Name="aracPlaka" ColumnName="aracPlaka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aracMarka">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.aracMarka">
+              <MappingFragment StoreEntitySet="aracMarka">
+                <ScalarProperty Name="aracMarkaAdi" ColumnName="aracMarkaAdi" />
+                <ScalarProperty Name="aracMarkaID" ColumnName="aracMarkaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userList">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userList">
+              <MappingFragment StoreEntitySet="userList">
+                <ScalarProperty Name="userAktif" ColumnName="userAktif" />
+                <ScalarProperty Name="rolID" ColumnName="rolID" />
+                <ScalarProperty Name="userAvatar" ColumnName="userAvatar" />
+                <ScalarProperty Name="userDyeri" ColumnName="userDyeri" />
+                <ScalarProperty Name="userDtarihi" ColumnName="userDtarihi" />
+                <ScalarProperty Name="userTel" ColumnName="userTel" />
+                <ScalarProperty Name="userEPosta" ColumnName="userEPosta" />
+                <ScalarProperty Name="userCinsiyet" ColumnName="userCinsiyet" />
+                <ScalarProperty Name="userSoyad" ColumnName="userSoyad" />
+                <ScalarProperty Name="userAd" ColumnName="userAd" />
+                <ScalarProperty Name="userPass" ColumnName="userPass" />
+                <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+                <ScalarProperty Name="userTC" ColumnName="userTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userRolList">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userRolList">
+              <MappingFragment StoreEntitySet="userRolList">
+                <ScalarProperty Name="rolAD" ColumnName="rolAD" />
+                <ScalarProperty Name="rolID" ColumnName="rolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userSession">
+            <EntityTypeMapping TypeName="AracKiralamaOtomasyonuModel.userSession">
+              <MappingFragment StoreEntitySet="userSession">
+                <ScalarProperty Name="sessionAktif" ColumnName="sessionAktif" />
+                <ScalarProperty Name="sessionTarih" ColumnName="sessionTarih" />
+                <ScalarProperty Name="userTC" ColumnName="userTC" />
+                <ScalarProperty Name="sessionKey" ColumnName="sessionKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
